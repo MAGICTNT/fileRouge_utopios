@@ -34,11 +34,19 @@ public class UserService {
         repository.deleteById(id);
     }
 
-    public boolean existsByUsername(String username) {
-        return repository.existsByUsername(username);
+    public boolean existsByEmail(String email) {
+        return repository.existsByEmail(email);
     }
 
-    public User findByUsername(String username) {
-        return repository.findByUsername(username);
+    public boolean existsByPseudo(String pseudo) {
+        return repository.existsByPseudo(pseudo);
+    }
+
+    public User findByEmail(String email) {
+        return repository.findByEmail(email);
+    }
+
+    public User findByPseudo(String pseudo) {
+        return repository.findByPseudo(pseudo);
     }
 }
