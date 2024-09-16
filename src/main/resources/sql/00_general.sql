@@ -93,6 +93,10 @@ ALTER TABLE users
 ALTER TABLE users
     ADD COLUMN mail VARCHAR(255) NOT NULL;
 
+ALTER TABLE message
+    ADD COLUMN id_users INTEGER NOT NULL,
+    FOREIGN KEY (id_users) REFERENCES users(id_users);
+
 INSERT INTO country (label_country, tag_country)
 VALUES ('Anglais', 'ENG'),
        ('Français', 'FRA'),
