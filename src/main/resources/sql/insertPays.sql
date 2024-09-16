@@ -1,3 +1,4 @@
+
 INSERT INTO country (label_country, tag_country)
 VALUES ('Anglais', 'ENG'),
        ('Français', 'FRA'),

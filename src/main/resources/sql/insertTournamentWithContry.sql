@@ -1,10 +1,10 @@
 -- Insérer un tournoi en France
-INSERT INTO tournament (label_tournament, format, start_date, end_date, status, level, minimum_age, elo)
-VALUES ('French Championship', 'Single Elimination', '2024-10-01', '2024-10-10', 'Scheduled', 'Pro', 18, 1500);
+INSERT INTO tournament (label_tournament, format, start_date, end_date, status,  minimum_age, elo)
+VALUES ('French Championship', 'Single Elimination', '2024-10-01', '2024-10-10', 'Scheduled',  18, 1500);
 
 -- Insérer un tournoi en Belgique
-INSERT INTO tournament (label_tournament, format, start_date, end_date, status, level, minimum_age, elo)
-VALUES ('Russe Open', 'Double Elimination', '2024-11-05', '2024-11-15', 'Scheduled', 'Amateur', 16, 1200);
+INSERT INTO tournament (label_tournament, format, start_date, end_date, status,  minimum_age, elo)
+VALUES ('Russe Open', 'Double Elimination', '2024-11-05', '2024-11-15', 'Scheduled',  16, 1200);
 
 -- Associer les tournois avec leurs pays respectifs (France et Belgique)
 INSERT INTO host (id_tournament, id_country)
