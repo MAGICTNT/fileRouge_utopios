@@ -1,18 +1,16 @@
 package fr.challenge.filerouge_utopios.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import fr.challenge.filerouge_utopios.util.enums.Status;
+import fr.challenge.filerouge_utopios.util.enums.Format;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -40,19 +38,19 @@ public class Tournament extends AbstractEntity {
     private LocalDate endDate;
 
     @Column(nullable = false)
-    @NotNull(message = "You must enter a status")
     @Enumerated(EnumType.STRING)
-    private Status status;
+    @Builder.Default
+    private Status status = Status.NOT_STARTED;
 
     private int minAge;
 
     private int minElo;
 
-    public enum Format {
-        SINGLE, DOUBLE
-    }
+    @ManyToMany(mappedBy = "tournaments")
+    @Builder.Default
+    private List<User> users = new ArrayList<>();
 
-    public enum Status {
-        NOT_STARTED, IN_PROGRESS, FINISHED
-    }
+    @OneToMany(mappedBy = "tournament")
+    @Builder.Default
+    private List<Message> messages = new ArrayList<>();
 }

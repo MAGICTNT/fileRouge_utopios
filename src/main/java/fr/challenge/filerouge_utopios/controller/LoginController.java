@@ -1,3 +1,4 @@
+/*
 package fr.challenge.filerouge_utopios.controller;
 
 import fr.challenge.filerouge_utopios.entity.User;
@@ -66,3 +67,4 @@ public class LoginController {
         return "redirect:/";
     }
 }
+*/

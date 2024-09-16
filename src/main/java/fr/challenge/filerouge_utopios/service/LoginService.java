@@ -1,6 +1,7 @@
 package fr.challenge.filerouge_utopios.service;
 
 import fr.challenge.filerouge_utopios.entity.User;
+import fr.challenge.filerouge_utopios.util.enums.AccountLevel;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,8 @@ public class LoginService {
                     .pseudo("admin")
                     .password("admin")
                     .birthDate(LocalDate.now())
-                    .accountLevel(User.AccountLevel.ADMIN)
-                    .country(countryService.findByLabel("France"))
+                    .accountLevel(AccountLevel.ADMIN)
+                    .country(countryService.findByTag("FRA"))
                     .build());
         }
     }
