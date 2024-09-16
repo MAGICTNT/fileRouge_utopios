@@ -30,6 +30,9 @@ CREATE TABLE game (
                       FOREIGN KEY (id_tournament) REFERENCES tournament(id_tournament)
 );
 
+ALTER TABLE game
+DROP COLUMN result;
+
 CREATE TABLE country (
                          id_country SERIAL,
                          label_country VARCHAR(255) NOT NULL,
@@ -76,6 +79,9 @@ CREATE TABLE discuss (
                          FOREIGN KEY (id_users) REFERENCES users(id_users),
                          FOREIGN KEY (id_game) REFERENCES game(id_game)
 );
+
+ALTER TABLE discuss
+    ADD COLUMN resultat INTEGER NOT NULL;
 
 CREATE TABLE host (
                       id_tournament INTEGER,
