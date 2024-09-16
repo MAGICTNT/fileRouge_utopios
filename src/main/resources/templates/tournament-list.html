@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Liste des tournois</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="container">
+  <h2>Liste des Tournois</h2>
+
+  <div class="search-bar">
+    <form th:action="@{/tournaments}" method="get">
+      <input type="text" name="name" placeholder="Rechercher par nom" value="${name}" />
+
+      <select name="game">
+        <option value="">Tous les jeux</option>
+        <option value="FIFA">FIFA</option>
+        <option value="LoL">League of Legends</option>
+        <option value="CSGO">CS:GO</option>
+      </select>
+
+      <select name="type">
+        <option value="">Tous les types</option>
+        <option value="classique">Classique</option>
+        <option value="1v1">1v1</option>
+        <option value="2v2">2v2</option>
+        <option value="3v3">3v3</option>
+      </select>
+
+      <select name="status">
+        <option value="">Tous les statuts</option>
+        <option value="upcoming">À venir</option>
+        <option value="ongoing">En cours</option>
+        <option value="finished">Terminé</option>
+      </select>
+
+      <input type="date" name="date" value="${date}" />
+
+      <button type="submit">Rechercher</button>
+    </form>
+  </div>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Jeu</th>
+      <th>Type</th>
+      <th>Date</th>
+      <th>Statut</th>
+      <th>Détails</th>
+      <th>S'inscrire</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="tournament : ${tournaments}">
+      <td th:text="${tournament.name}"></td>
+      <td th:text="${tournament.game}"></td>
+      <td th:text="${tournament.type}"></td>
+      <td th:text="${#dates.format(tournament.date, 'dd/MM/yyyy')}"></td>
+      <td th:text="${tournament.status}"></td>
+
+      <td>
+        <a th:href="@{/tournaments/{id}(id=${tournament.id})}">Détails</a>
+      </td>
+
+      <td>
+        <form th:action="@{/tournaments/join/{id}(id=${tournament.id})}" method="post">
+          <button type="submit">S'inscrire</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
