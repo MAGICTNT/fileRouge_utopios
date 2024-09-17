@@ -5,6 +5,7 @@ import fr.challenge.filerouge_utopios.entity.Country;
 import fr.challenge.filerouge_utopios.entity.User;
 import fr.challenge.filerouge_utopios.service.CountryService;
 import fr.challenge.filerouge_utopios.service.LoginService;
+import fr.challenge.filerouge_utopios.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
@@ -20,10 +21,12 @@ import org.springframework.web.server.ResponseStatusException;
 public class LoginController {
     private final LoginService service;
     private final CountryService countryService;
+    private final UserService userService;
 
-    public LoginController(LoginService service, CountryService countryService) {
+    public LoginController(LoginService service, CountryService countryService, UserService userService) {
         this.service = service;
         this.countryService = countryService;
+        this.userService = userService;
     }
 
     @RequestMapping("/signup")
@@ -35,8 +38,6 @@ public class LoginController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signupPOST(@Valid @ModelAttribute("user") User user, BindingResult result) {
-        System.out.println(user.getPseudo());
-        System.out.println(user.getPassword());
 
         if (!result.hasErrors()) {
             if (!service.signup(user)) {
@@ -48,20 +49,34 @@ public class LoginController {
         }
         return "redirect:/signup";
     }
+    @RequestMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("logged", service.isLoggedIn());
+        return "login";
+    }
+
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginPOST(@Valid @ModelAttribute("user") User user, BindingResult result) {
-        if (!result.hasErrors()) {
-            if (!service.login(user.getEmail(), user.getPassword())) {
-                result.rejectValue("password", "error.user", "Username or password is incorrect");
-            } else return "redirect:/";
+    public String loginPOST(@RequestParam("email") String email,@RequestParam("password") String password) {
+
+        if(service.login(email, password)) {
+            return "redirect:/";
         }
-        return "login";
+        return "redirect:/login";
+
+//
+//        if (!result.hasErrors()) {
+//            if (!service.login(user.getEmail(), user.getPassword())) {
+//                result.rejectValue("password", "error.user", "Username or password is incorrect");
+//            } else return "redirect:/";
+//        }
     }
 
     @RequestMapping("/logout")
     public String logout() {
-        throw new ResponseStatusException(HttpStatusCode.valueOf(404));
+        service.logout();
+        return "redirect:/";
+//        throw new ResponseStatusException(HttpStatusCode.valueOf(404));
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
