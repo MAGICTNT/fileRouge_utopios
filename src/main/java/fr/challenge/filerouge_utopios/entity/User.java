@@ -77,4 +77,9 @@ public class User extends AbstractEntity {
                 .map(Result::getGame)
                 .toList();
     }
+
+    public int getAge() {
+        LocalDate now = LocalDate.now();
+        return now.getYear() - birthDate.getYear() - ((now.getMonthValue() < birthDate.getMonthValue()) ? 1 : 0);
+    }
 }
