@@ -21,16 +21,16 @@ public class LoginService {
 
         // Create admin user for testing purpose only
         // TODO: DON'T FORGET TO REMOVE THIS IN PRODUCTION
-        if (!userService.existsByPseudo("admin")) {
-            userService.save(User.builder()
-                    .email("admin@admin.admin")
-                    .pseudo("admin")
-                    .password("admin")
-                    .birthDate(LocalDate.now())
-                    .accountLevel(AccountLevel.ADMIN)
-                    .country(countryService.findByTag("FRA"))
-                    .build());
-        }
+//        if (!userService.existsByPseudo("admin")) {
+//            userService.save(User.builder()
+//                    .email("admin@admin.admin")
+//                    .pseudo("admin")
+//                    .password("admin")
+//                    .birthDate(LocalDate.now())
+//                    .accountLevel(AccountLevel.ADMIN)
+//                    .country(countryService.findByTag("FRA"))
+//                    .build());
+//        }
     }
 
     public boolean signup(User user) {

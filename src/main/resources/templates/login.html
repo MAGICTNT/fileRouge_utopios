@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>connection</title>
+    <!--    <span th:replace="~{/composant/bootstrapImports :: bootstrapImports}"></span> -->
+</head>
+<body>
+<form th:action="@{/login}" method="post">
+    <div>
+        <label for="login">login</label>
+        <input name="login" id="login" type="text">
+    </div>
+    <div>
+        <label for="password">password</label>
+        <input name="password" id="password" type="password">
+    </div>
+    <button type="submit">connection</button>
+</form>
+</body>
+</html>

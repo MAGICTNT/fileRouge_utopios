@@ -9,7 +9,11 @@
 <body>
 <div class="container">
     <h2>Inscription</h2>
-    <form th:action="@{/register}" th:object="${user}" method="post">
+    <form th:action="@{/signup}" th:object="${user}" method="post">
+        <div class="form-group">
+            <label for="pseudo">Pseudo</label>
+            <input type="text" id="pseudo" th:field="*{pseudo}" placeholder="Entrez votre pseudo" required />
+        </div>
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" th:field="*{email}" placeholder="Entrez votre email" required />
@@ -21,38 +25,14 @@
         </div>
 
         <div class="form-group">
-            <label for="dob">Date de naissance</label>
-            <input type="date" id="dob" th:field="*{birthDate}" required />
+            <label for="birthDate">Date de naissance</label>
+            <input type="date" id="birthDate" th:field="*{birthDate}" required />
         </div>
 
         <div class="form-group">
             <label for="country">Pays</label>
             <select id="country" th:field="*{country}" required>
-                <option value="ENG">Anglais</option>
-                <option value="FRA">France</option>
-                <option value="ESP">Espagnol</option>
-                <option value="DEU">Allemand</option>
-                <option value="ITA">Italien</option>
-                <option value="JPN">Japonais</option>
-                <option value="CHI">Chinois</option>
-                <option value="RUS">Russe</option>
-                <option value="ARA">Arabe</option>
-                <option value="POR">Portugais</option>
-                <option value="NLD">Néerlandais</option>
-                <option value="GRE">Grec</option>
-                <option value="TUR">Turc</option>
-                <option value="KOR">Coréen</option>
-                <option value="VIE">Vietnamien</option>
-                <option value="POL">Polonais</option>
-                <option value="SWE">Suédois</option>
-                <option value="NOR">Norvégien</option>
-                <option value="FIN">Finnois</option>
-                <option value="DAN">Danois</option>
-                <option value="HIN">Hindi</option>
-                <option value="BEN">Bengali</option>
-                <option value="THA">Thai</option>
-                <option value="HEB">Hébreu</option>
-                <option value="HUN">Hongrois</option>
+                <option th:each="country : ${countrys}" th:value="${country.id}" th:text="${country.label}"></option>
             </select>
         </div>
 

@@ -1,6 +1,8 @@
 package fr.challenge.filerouge_utopios.controller;
 
+import fr.challenge.filerouge_utopios.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +51,12 @@ public class PageController {
         //
         //
         return "redirect:/login";
+    }
+
+    @RequestMapping("/inscription")
+    public String register(Model model) {
+        model.addAttribute("user", new User());
+        return "inscription-form";
     }
 
 
