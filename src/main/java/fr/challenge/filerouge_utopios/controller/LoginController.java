@@ -30,7 +30,7 @@ public class LoginController {
     public String signup(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("countries", countryService.findAll());
-        return "inscription-form";
+        return "signup";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
@@ -50,23 +50,23 @@ public class LoginController {
         }
 
         model.addAttribute("countries", countryService.findAll());
-        return "inscription-form";
+        return "signup";
     }
 
     @RequestMapping("/login")
-    public String login(Model model) {
-        model.addAttribute("logged", service.isLoggedIn());
+    public String login() {
         return "login";
     }
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginPOST(@RequestParam("email") String email, @RequestParam("password") String password) {
-
+    public String loginPOST(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
         if (service.login(email, password)) {
             return "redirect:/";
         }
-        return "redirect:/login";
+
+        model.addAttribute("error", "Email or password is incorrect");
+        return "login";
 
 //
 //        if (!result.hasErrors()) {
