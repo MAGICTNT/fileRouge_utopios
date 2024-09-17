@@ -1,5 +1,0 @@
-ALTER TABLE discuss
-    ADD COLUMN resultat INTEGER NOT NULL;
-
-ALTER TABLE game
-DROP COLUMN result;

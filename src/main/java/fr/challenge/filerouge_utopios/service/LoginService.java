@@ -1,36 +1,18 @@
 package fr.challenge.filerouge_utopios.service;
 
 import fr.challenge.filerouge_utopios.entity.User;
-import fr.challenge.filerouge_utopios.util.enums.AccountLevel;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 // TODO: Use Spring Security for authentication if time permits it
 @Service
 public class LoginService {
     private final UserService userService;
-    private final CountryService countryService;
     private final HttpSession httpSession;
 
-    public LoginService(UserService userService, CountryService countryService, HttpSession httpSession) {
+    public LoginService(UserService userService, HttpSession httpSession) {
         this.userService = userService;
-        this.countryService = countryService;
         this.httpSession = httpSession;
-
-        // Create admin user for testing purpose only
-        // TODO: DON'T FORGET TO REMOVE THIS IN PRODUCTION
-//        if (!userService.existsByPseudo("admin")) {
-//            userService.save(User.builder()
-//                    .email("admin@admin.admin")
-//                    .pseudo("admin")
-//                    .password("admin")
-//                    .birthDate(LocalDate.now())
-//                    .accountLevel(AccountLevel.ADMIN)
-//                    .country(countryService.findByTag("FRA"))
-//                    .build());
-//        }
     }
 
     public boolean signup(User user) {
