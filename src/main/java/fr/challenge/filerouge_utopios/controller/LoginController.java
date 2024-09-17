@@ -1,13 +1,11 @@
 
 package fr.challenge.filerouge_utopios.controller;
 
-import fr.challenge.filerouge_utopios.entity.Country;
 import fr.challenge.filerouge_utopios.entity.User;
 import fr.challenge.filerouge_utopios.service.CountryService;
 import fr.challenge.filerouge_utopios.service.LoginService;
 import fr.challenge.filerouge_utopios.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 public class LoginController {
@@ -32,23 +29,30 @@ public class LoginController {
     @RequestMapping("/signup")
     public String signup(Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("countrys", countryService.findAll());
+        model.addAttribute("countries", countryService.findAll());
         return "inscription-form";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String signupPOST(@Valid @ModelAttribute("user") User user, BindingResult result) {
-
+    public String signupPOST(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
         if (!result.hasErrors()) {
             if (!service.signup(user)) {
-                result.rejectValue("username", "error.user", "Email or pseudo already exists");
+                if (userService.existsByEmail(user.getEmail())) {
+                    result.rejectValue("email", "error.user", "Email already exists");
+                }
+                if (userService.existsByPseudo(user.getPseudo())) {
+                    result.rejectValue("pseudo", "error.user", "Pseudo already exists");
+                }
             } else {
                 service.login(user.getEmail(), user.getPassword());
                 return "redirect:/";
             }
         }
-        return "redirect:/signup";
+
+        model.addAttribute("countries", countryService.findAll());
+        return "inscription-form";
     }
+
     @RequestMapping("/login")
     public String login(Model model) {
         model.addAttribute("logged", service.isLoggedIn());
@@ -57,9 +61,9 @@ public class LoginController {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginPOST(@RequestParam("email") String email,@RequestParam("password") String password) {
+    public String loginPOST(@RequestParam("email") String email, @RequestParam("password") String password) {
 
-        if(service.login(email, password)) {
+        if (service.login(email, password)) {
             return "redirect:/";
         }
         return "redirect:/login";
