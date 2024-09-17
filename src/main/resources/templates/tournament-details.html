@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Détails du Tournoi</title>
+</head>
+<body>
+<div class="container mt-5">
+  <!-- Détails du tournoi -->
+  <h1 class="text-center">Détails du Tournoi</h1>
+  <div class="card mt-4">
+    <div class="card-body">
+      <h3 id="tournamentName">Nom du Tournoi : <strong>Nom du tournoi</strong></h3>
+      <p>Jeu : <span id="game">Nom du jeu</span></p>
+      <p>Type de tournoi : <span id="tournamentType">Type du tournoi</span></p>
+      <p>Date de début : <span id="startDate">Date de début</span></p>
+      <p>Date de fin : <span id="endDate">Date de fin</span></p>
+    </div>
+  </div>
+
+  <!-- Liste des joueurs inscrits -->
+  <h2 class="mt-5">Joueurs inscrits</h2>
+  <ul class="list-group" id="playersList">
+    <li class="list-group-item">Joueur 1</li>
+    <li class="list-group-item">Joueur 2</li>
+    <li class="list-group-item">Joueur 3</li>
+  </ul>
+
+  <!-- Espace commentaires -->
+  <h2 class="mt-5">Commentaires</h2>
+  <div class="mb-3">
+    <form id="commentForm">
+      <div class="mb-3">
+        <label for="commentText" class="form-label">Laisser un commentaire</label>
+        <textarea class="form-control" id="commentText" rows="3" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Envoyer</button>
+    </form>
+  </div>
+
+  <!-- Liste des commentaires -->
+  <ul class="list-group" id="commentsList">
+    <li class="list-group-item">
+      <strong>Utilisateur 1 :</strong> Commentaire exemple...
+    </li>
+    <li class="list-group-item">
+      <strong>Utilisateur 2 :</strong> Autre commentaire exemple...
+    </li>
+  </ul>
+
+  <!-- Liste des matchs -->
+  <h2 class="mt-5">Matchs programmés</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">Match #</th>
+      <th scope="col">Joueur 1</th>
+      <th scope="col">Joueur 2</th>
+      <th scope="col">Date du match</th>
+    </tr>
+    </thead>
+    <tbody id="matchesList">
+    <tr>
+      <th scope="row">1</th>
+      <td><a href="#">Pseudo Joueur 1</a></td>
+      <td><a href="#">Pseudo Joueur 2</a></td>
+      <td>20 Septembre 2024, 15:00</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td><a href="#">Pseudo Joueur 3</a></td>
+      <td><a href="#">Pseudo Joueur 4</a></td>
+      <td>21 Septembre 2024, 18:00</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Validation et gestion des commentaires -->
+<script>
+  document.getElementById('commentForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const commentText = document.getElementById('commentText').value;
+
+    if (commentText.trim()) {
+      // Ajouter le commentaire dans la liste des commentaires
+      const commentList = document.getElementById('commentsList');
+      const newComment = document.createElement('li');
+      newComment.className = 'list-group-item';
+      newComment.innerHTML = `<strong>Utilisateur X :</strong> ${commentText}`;
+      commentList.appendChild(newComment);
+
+      // Réinitialiser le champ de texte
+      document.getElementById('commentText').value = '';
+    } else {
+      alert("Veuillez entrer un commentaire.");
+    }
+  });
+</script>
+</body>
+</html>
