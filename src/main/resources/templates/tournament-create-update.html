@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Créer/Mettre à jour un Tournoi</title>
+</head>
+<body>
+<div class="container mt-5">
+  <h1 class="text-center">Créer ou Mettre à jour un Tournoi</h1>
+  <form id="tournamentForm" class="mt-4">
+    <div class="mb-3">
+      <label for="tournamentName" class="form-label">Nom du tournoi</label>
+      <input type="text" class="form-control" id="tournamentName" name="tournamentName" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="game" class="form-label">Jeu</label>
+      <select class="form-select" id="game" name="game" required>
+        <option value="" disabled selected>Choisissez un jeu</option>
+        <option value="FIFA">FIFA</option>
+        <option value="LoL">League of Legends</option>
+        <option value="CSGO">CS:GO</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="tournamentType" class="form-label">Type de tournoi</label>
+      <select class="form-select" id="tournamentType" name="tournamentType" required>
+        <option value="" disabled selected>Choisissez un type</option>
+        <option value="Classique">Classique</option>
+        <option value="1v1">1v1</option>
+        <option value="2v2">2v2</option>
+        <option value="3v3">3v3</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="startDate" class="form-label">Date de début</label>
+      <input type="date" class="form-control" id="startDate" name="startDate" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="endDate" class="form-label">Date de fin</label>
+      <input type="date" class="form-control" id="endDate" name="endDate" required>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-primary">Créer/Mettre à jour le tournoi</button>
+      <button type="reset" class="btn btn-secondary">Réinitialiser</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.getElementById('tournamentForm').addEventListener('submit', function(event) {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+
+    if (new Date(startDate) > new Date(endDate)) {
+      event.preventDefault();
+      alert('La date de début doit être antérieure à la date de fin.');
+    }
+  });
+</script>
+</body>
+</html>
