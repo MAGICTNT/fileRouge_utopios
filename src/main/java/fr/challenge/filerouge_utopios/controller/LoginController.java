@@ -54,19 +54,19 @@ public class LoginController {
     }
 
     @RequestMapping("/login")
-    public String login(Model model) {
-        model.addAttribute("logged", service.isLoggedIn());
+    public String login() {
         return "login";
     }
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginPOST(@RequestParam("email") String email, @RequestParam("password") String password) {
-
+    public String loginPOST(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
         if (service.login(email, password)) {
             return "redirect:/";
         }
-        return "redirect:/login";
+
+        model.addAttribute("error", "Email or password is incorrect");
+        return "login";
 
 //
 //        if (!result.hasErrors()) {
