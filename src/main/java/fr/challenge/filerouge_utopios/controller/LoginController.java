@@ -30,7 +30,7 @@ public class LoginController {
     public String signup(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("countries", countryService.findAll());
-        return "inscription-form";
+        return "signup";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
@@ -50,7 +50,7 @@ public class LoginController {
         }
 
         model.addAttribute("countries", countryService.findAll());
-        return "inscription-form";
+        return "signup";
     }
 
     @RequestMapping("/login")
