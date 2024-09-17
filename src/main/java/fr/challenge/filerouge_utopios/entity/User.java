@@ -64,14 +64,17 @@ public class User extends AbstractEntity {
     @Builder.Default
     private List<Tournament> tournaments = new ArrayList<>();
 
-    /*@ManyToMany
-    @JoinTable(name = "user_to_game",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id", referencedColumnName = "id"))
+    @OneToMany(mappedBy = "user")
     @Builder.Default
-    private List<Game> games = new ArrayList<>();*/
+    private List<Result> results = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     @Builder.Default
     private List<Message> messages = new ArrayList<>();
+
+    public List<Game> getGames() {
+        return this.results.stream()
+                .map(Result::getGame)
+                .toList();
+    }
 }

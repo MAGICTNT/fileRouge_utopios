@@ -7,6 +7,8 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,7 +30,13 @@ public class Game extends AbstractEntity {
     @JoinColumn(nullable = false, name = "tournament_id", referencedColumnName = "id")
     private Tournament tournament;
 
-    /*@ManyToMany(mappedBy = "primaryKey.user")
+    @OneToMany(mappedBy = "game")
     @Builder.Default
-    private List<User> users = new ArrayList<>();*/
+    private List<Result> results = new ArrayList<>();
+
+    public List<User> getUsers() {
+        return this.results.stream()
+                .map(Result::getUser)
+                .toList();
+    }
 }
