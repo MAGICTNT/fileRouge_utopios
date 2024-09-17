@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@IdClass(resultId.class)
+@IdClass(ResultId.class)
 @Getter
 @Setter
 public class Result {
