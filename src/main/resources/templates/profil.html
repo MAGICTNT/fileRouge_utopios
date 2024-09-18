@@ -34,8 +34,29 @@
         </div>
     </div>-->
 
-    <div class="px-4 py-5 my-5 text-center">
-        <h1>Page en construction</h1>
+    <div class="px-4 py-1 my-1">
+        <div class="d-flex justify-content-center">
+            <div class="mx-5">
+                <h1 class="display-5 fw-bold text-body-emphasis mt-4" th:text="${session.get('user').getPseudo()}"></h1>
+                <p th:text="${session.get('user').getAge() + ' years old'}"></p>
+                <a th:href="@{mailto:{email}(email=${session.get('user').getEmail()})}">
+                    <p th:text="${session.get('user').getEmail()}"></p>
+                </a>
+                <p>
+                    <strong class="text-warning">ELO</strong> :
+                    <span th:text="${session.get('user').getElo()}"></span>
+                </p>
+                <p th:text="${session.get('user').getCountry().getLabel()} + ' [' + ${session.get('user').getCountry().getTag()} + ']'"></p>
+            </div>
+            <div class="mx-5 d-flex flex-column">
+                <img class="img-fluid w-200px rounded-circle mb-3" src="/images/default_avatar.jpg" alt="avatar">
+                <a href="#" class="btn btn-outline-success align-self-end">Change avatar</a>
+            </div>
+        </div>
+        <div class="d-flex justify-content-start border-top mx-5 px-5 mt-5 pt-4">
+            <h2>My tournaments</h2>
+            <p></p>
+        </div>
     </div>
     <!--<div id="infoUser" >
         <div id="infoUserGeneral">
