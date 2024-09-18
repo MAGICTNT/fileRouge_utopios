@@ -1,6 +1,7 @@
 package fr.challenge.filerouge_utopios.service;
 
 import fr.challenge.filerouge_utopios.entity.Tournament;
+import fr.challenge.filerouge_utopios.entity.User;
 import fr.challenge.filerouge_utopios.repository.TournamentRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +26,20 @@ public class TournamentService {
     public Tournament save(Tournament tournament) {
         return repository.save(tournament);
     }
+    public void merge(Tournament tournament) {
+        repository.save(tournament);
+        repository.flush();
+    }
+
 
     public void delete(Tournament tournament) {
         repository.delete(tournament);
+    }
+
+    public void updateByUsers(Tournament tournament) {
+        List<User> usersSave = tournament.getUsers();
+        repository.flush();
+        repository.save(tournament);
     }
 
     public void deleteById(Long id) {
