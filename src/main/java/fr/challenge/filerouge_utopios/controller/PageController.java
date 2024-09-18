@@ -20,7 +20,7 @@ public class PageController {
 
     @RequestMapping("/profil")
     public String profil(Model model) {
-        if (loginService.isLoggedIn()) {
+        if (loginService.isLoggedIn() || loginService.getUser() != null) {
             return "profil";
         }
         return "redirect:/login";

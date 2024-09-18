@@ -29,16 +29,22 @@ public class TournamentController {
 
     @RequestMapping("/tournaments")
     public String tournament(Model model) {
-        model.addAttribute("tournaments", tournamentService.findAll());
-        return "tournament-list";
+        if (service.isLoggedIn() || service.getUser() != null) {
+            model.addAttribute("tournaments", tournamentService.findAll());
+            return "tournament-list";
+        }
+        return "redirect:/login";
     }
 
     @RequestMapping("/newTournament")
     public String newTournament(Model model) {
-        model.addAttribute("tournament", new Tournament());
-        model.addAttribute("formats", Format.values());
-        model.addAttribute("statusMessage", null);
-        return "tournament-create-update";
+        if (service.isLoggedIn() || service.getUser() != null) {
+            model.addAttribute("tournament", new Tournament());
+            model.addAttribute("formats", Format.values());
+            model.addAttribute("statusMessage", null);
+            return "tournament-create-update";
+        }
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "/newTournament", method = RequestMethod.POST)
@@ -56,26 +62,33 @@ public class TournamentController {
         model.addAttribute("tournament", new Tournament());
         model.addAttribute("formats", Format.values());
         model.addAttribute("statusMessage", "tournament " + tournament.getLabel() + " created");
-        return "tournament-create-update";
+        return "redirect:/tournaments/id=" + newTournament.getId();
     }
 
     @RequestMapping("/tournaments/id={idTournament}")
     public String tournamentById(@PathVariable("idTournament") Long idTournament, Model model) {
-        Tournament findTournament = tournamentService.findById(idTournament);
-        if(findTournament != null) {
-            model.addAttribute("tournament", findTournament);
-            model.addAttribute("isCreator", findTournament.getCreator().equals(service.getUser()));
-//            model.addAttribute("creator", userService.findById(findTournament.getUsers()).getPseudo().equals(service.getPseudo().getPseudo()));
-            return "tournament-details";
+        if (service.isLoggedIn() || service.getUser() != null) {
+            Tournament findTournament = tournamentService.findById(idTournament);
+
+            if (findTournament != null) {
+                model.addAttribute("tournament", findTournament);
+                model.addAttribute("isCreator", findTournament.getCreator().equals(service.getUser()));
+                return "tournament-details";
+            }
+            return "redirect:/tournaments";
         }
-        return "redirect:/tournaments";
+        return "redirect:/login";
     }
+
     @RequestMapping("/deleteTournament/id={idTournament}")
     public String deleteTournamentById(@PathVariable("idTournament") Long idTournament, Model model) {
-        Tournament findTournament = tournamentService.findById(idTournament);
-        if(findTournament != null) {
-            tournamentService.delete(findTournament);
+        if (service.isLoggedIn() || service.getUser() != null) {
+            Tournament findTournament = tournamentService.findById(idTournament);
+            if (findTournament != null) {
+                tournamentService.delete(findTournament);
+            }
+            return "redirect:/tournaments";
         }
-        return "redirect:/tournaments";
+        return "redirect:/login";
     }
 }
