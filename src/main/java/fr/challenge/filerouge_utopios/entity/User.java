@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -37,6 +38,7 @@ public class User extends AbstractEntity {
 
     @Column(nullable = false)
     @NotNull(message = "You must enter a birth date")
+    @Past(message = "Birth date cannot be in the future")
     private LocalDate birthDate;
 
     @Column(nullable = false)

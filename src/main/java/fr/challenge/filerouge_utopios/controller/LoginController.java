@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDate;
-
 @Controller
 public class LoginController {
     private final LoginService service;
@@ -37,10 +35,9 @@ public class LoginController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signupPOST(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
+        System.out.println(user.getBirthDate());
         if (!result.hasErrors()) {
-            if (user.getBirthDate().isAfter(LocalDate.now())) {
-                result.rejectValue("birthDate", "error.user", "Birth date cannot be in the future");
-            } else if (!service.signup(user)) {
+            if (!service.signup(user)) {
                 if (userService.existsByEmail(user.getEmail())) {
                     result.rejectValue("email", "error.user", "Email already exists");
                 }
