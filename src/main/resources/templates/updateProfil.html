@@ -17,10 +17,12 @@
 <main class="container flex-grow-1">
     <div class="px-4 py-5 my-5 text-center max-w-330px mx-auto">
         <img class="d-block mx-auto mb-4 img-fluid w-100px" src="/images/logo.png" alt="logo"/>
-        <h1 class="display-5 fw-bold text-body-emphasis">Login</h1>
+        <h1 class="display-5 fw-bold text-body-emphasis">Password recovery</h1>
 
         <div class="form-signin w-100 m-auto">
-            <form th:action="@{/login}" method="post">
+            <small class="text-success" th:if="${passwordUpdate != null}" th:text="${passwordUpdate}"></small>
+
+            <form th:action="@{/newPassword}" method="post">
                 <div class="form-floating">
                     <input type="email"
                            class="form-control"
@@ -29,23 +31,30 @@
                            placeholder="Email"
                            required>
                     <label for="login-email">Email</label>
+                    <small class="text-danger" th:if="${errorEmail != null}" th:text="${errorEmail}"></small>
+
                 </div>
                 <div class="form-floating">
                     <input type="password"
                            class="form-control"
                            id="login-password"
-                           name="password"
+                           name="login-password"
                            placeholder="Password"
                            required>
                     <label for="login-password">Password</label>
-                    <small class="text-danger" th:if="${error != null}" th:text="${error}"></small>
+                    <small class="text-danger" th:if="${errorPassword != null}" th:text="${errorPassword}"></small>
+                </div>
+                <div class="form-floating">
+                    <input type="password"
+                           class="form-control"
+                           id="login-password-confirm"
+                           name="login-password-confirm"
+                           placeholder="Password confirmation"
+                           required>
+                    <label for="login-password-confirm">Password confirmation</label>
                 </div>
 
-                <div class="text-end">
-                    <a th:href="@{/newPassword}">Password forgotten ?</a>
-                </div>
-
-                <button class="btn btn-primary w-100 my-3 py-2" type="submit">Log in</button>
+                <button class="btn btn-primary w-100 my-3 py-2" type="submit">update</button>
             </form>
 
             <span>Don't have an account yet ? <a class="text-decoration-none" th:href="@{/signup}">Sign up</a></span>
@@ -53,24 +62,6 @@
     </div>
 </main>
 
-<!--<div th:unless="${logged}">
-    <p>pas connecté</p>
-    <form th:action="@{/login}" method="post">
-        <div>
-            <label for="email">email</label>
-            <input name="email" id="email" type="text">
-        </div>
-        <div>
-            <label for="password">password</label>
-            <input name="password" id="password" type="password">
-        </div>
-        <button type="submit">connection</button>
-    </form>
-</div>
-<div th:if="${logged}">
-    <p>connecter</p>
-    <a th:href="@{/logout}">logout</a>
-</div>-->
 
 <footer th:insert="~{fragments/footer :: footer}"></footer>
 
