@@ -3,6 +3,7 @@ package fr.challenge.filerouge_utopios.controller;
 import fr.challenge.filerouge_utopios.entity.Game;
 import fr.challenge.filerouge_utopios.entity.Result;
 import fr.challenge.filerouge_utopios.entity.Tournament;
+import fr.challenge.filerouge_utopios.entity.User;
 import fr.challenge.filerouge_utopios.service.LoginService;
 import fr.challenge.filerouge_utopios.service.TournamentService;
 import fr.challenge.filerouge_utopios.service.UserService;
@@ -51,20 +52,25 @@ public class TournamentController {
 
     @RequestMapping(value = "/newTournament", method = RequestMethod.POST)
     public String newTournament(@Valid @ModelAttribute("tournament") Tournament tournament, BindingResult result, Model model) {
-        tournament.setMinElo(0);
-        tournament.setCreator(loginService.getUser());
-        if (tournament.getStartDate().isAfter(tournament.getEndDate())) {
+        if (loginService.isLoggedIn() || loginService.getUser() != null) {
+            tournament.setMinElo(0);
+            tournament.setCreator(loginService.getUser());
+            if (tournament.getStartDate().isAfter(tournament.getEndDate())) {
+                model.addAttribute("tournament", new Tournament());
+                model.addAttribute("formats", Format.values());
+                model.addAttribute("statusMessage", "la date du debut de tournois ne peux commencer apres la fin ");
+                return "tournament-create-update";
+            }
+
+            Tournament newTournament = tournamentService.save(tournament);
             model.addAttribute("tournament", new Tournament());
             model.addAttribute("formats", Format.values());
-            model.addAttribute("statusMessage", "la date du debut de tournois ne peux commencer apres la fin ");
-            return "tournament-create-update";
+            model.addAttribute("statusMessage", "tournament " + tournament.getLabel() + " created");
+            return "redirect:/tournaments/id=" + newTournament.getId();
         }
+        return "redirect:/login";
 
-        Tournament newTournament = tournamentService.save(tournament);
-        model.addAttribute("tournament", new Tournament());
-        model.addAttribute("formats", Format.values());
-        model.addAttribute("statusMessage", "tournament " + tournament.getLabel() + " created");
-        return "redirect:/tournaments/id=" + newTournament.getId();
+
     }
 
     @RequestMapping("/tournaments/id={idTournament}")
