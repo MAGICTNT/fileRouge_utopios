@@ -1,30 +1,60 @@
 <!DOCTYPE html>
-<html lang="fr"
-      xmlns:th="http://www.thymeleaf.org"
->
+<html lang="fr" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détails du Tournoi</title>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <span th:replace="~{/fragments/import :: bootstrap}"></span>
+    <span th:replace="~{/fragments/import :: styles('tournament-details')}"></span>
 </head>
-<body>
-<div class="container mt-5">
+<body class="d-flex min-vh-100 flex-column">
+
+<header th:insert="~{fragments/header :: header('')}"></header>
+
+<main class="container flex-grow-1 mt-5">
     <!-- Détails du tournoi -->
-    <h1 class="text-center">Détails du Tournoi</h1>
-    <div class="card mt-4">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">Détails du Tournoi</h1>
+    </div>
+
+    <div class="card shadow mt-4">
         <div class="card-body">
-            <h3 id="tournamentName">Nom du Tournoi : <strong th:text="${tournament.label}"></strong></h3>
-            <!--      <p>Jeu : <span id="game">Nom du jeu</span></p>-->
-            <p>Type de tournoi : <span id="tournamentType" th:text="${tournament.format}">Type du tournoi</span></p>
-            <p>Date de début : <span id="startDate" th:text="${tournament.startDate}">Date de début</span></p>
-            <p>Date de fin : <span id="endDate" th:text="${tournament.endDate}">Date de fin</span></p>
+            <h3>Nom du Tournoi : <strong th:text="${tournament.label}"></strong></h3>
+            <p>Type de tournoi : <span th:text="${tournament.format}"></span></p>
+            <p>Date de début : <span th:text="${tournament.startDate}"></span></p>
+            <p>Date de fin : <span th:text="${tournament.endDate}"></span></p>
         </div>
-        <div th:if="${isCreator}">
-            <button><a th:href="@{/deleteTournament/id={id}(id=${tournament.getId()})}">delete</a></button>
+
+        <!-- Bouton pour supprimer le tournoi (affiché uniquement pour le créateur) -->
+        <div class="card-footer text-end" th:if="${isCreator}">
+            <a th:href="@{/deleteTournament/id={id}(id=${tournament.getId()})}" class="btn btn-danger">
+                Supprimer le tournoi
+            </a>
         </div>
     </div>
 
-</div>
+    <!-- Formulaire pour ajouter des commentaires -->
+    <div class="card mt-5">
+        <div class="card-body">
+            <h4>Commentaires</h4>
+            <ul class="list-group" id="commentsList">
+                <!-- Liste des commentaires existants -->
+                <li class="list-group-item"><strong>Utilisateur X :</strong> Commentaire exemple</li>
+            </ul>
+        </div>
+
+        <div class="card-footer">
+            <form id="commentForm" class="d-flex">
+                <input type="text" id="commentText" class="form-control me-2" placeholder="Ajouter un commentaire...">
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer th:insert="~{fragments/footer :: footer}"></footer>
 
 <!-- Validation et gestion des commentaires -->
 <script>
@@ -47,5 +77,6 @@
         }
     });
 </script>
+
 </body>
 </html>
