@@ -56,11 +56,12 @@
         <div class="d-block justify-content-start border-top mx-5 px-5 mt-5 pt-4">
             <h2 class="mb-4">My tournaments</h2>
             <ul class="list-group">
-                <li class="list-group-item d-flex flex-row justify-content-between"
+                <li class="list-group-item list-group-item-action d-flex flex-row justify-content-between"
                     th:each="tournament : ${session.get('user').getTournaments()}">
                     <div class="d-flex flex-row my-auto">
                         <div class="my-auto">
-                            <h5 th:text="${tournament.getLabel() + ' (' + tournament.getStatus().name().toLowerCase().replaceAll('_', ' ') + ')'}"></h5>
+                            <h5 class="mb-1" th:text="${tournament.getLabel() + ' (' + tournament.getStatus().name().toLowerCase().replaceAll('_', ' ') + ')'}"></h5>
+                            <small class="d-block">Format: <strong th:text="${tournament.getFormat().name().replaceAll('_', ' ')}"></strong></small>
                             <small class="text-muted"
                                    th:text="${tournament.getStartDate()} + ' - ' + ${tournament.getEndDate()}"></small>
                         </div>
@@ -70,7 +71,8 @@
                     </div>
                     <div class="my-auto">
                         <p class="text-end" th:text="${tournament.getUsers().size() + ' registered players'}"></p>
-                        <a class="me-2 text-decoration-none" href="#" data-bs-toggle="tooltip" title="See the messages for this tournament">
+                        <a class="me-2 text-decoration-none" href="#" data-bs-toggle="tooltip"
+                           title="See the messages for this tournament">
                             <img class="h-32px" src="/images/messages.png" alt="messages">
                         </a>
                         <a class="btn btn-primary" th:href="@{/tournaments/id={id}(id=${tournament.getId()})}">
