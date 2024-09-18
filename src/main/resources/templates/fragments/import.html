@@ -14,3 +14,8 @@
     <link rel="stylesheet" href="/css/main.css"/>
     <link th:unless="${page.isBlank()}" rel="stylesheet" th:href="${'/css/' + page + '.css'}"/>
 </th:block>
+
+<th:block th:fragment="scripts(page)">
+    <script src="/js/main.js" defer></script>
+    <script th:unless="${page.isBlank()}" th:src="${'/js/' + page + '.js'}" defer></script>
+</th:block>
