@@ -46,7 +46,7 @@ public class Tournament extends AbstractEntity {
 
     private int minElo;
 
-    @ManyToMany(mappedBy = "tournaments")
+    @ManyToMany(mappedBy = "tournaments", fetch = FetchType.EAGER)
     @Builder.Default
     private List<User> users = new ArrayList<>();
 
