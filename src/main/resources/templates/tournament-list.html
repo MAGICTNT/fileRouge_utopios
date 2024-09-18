@@ -1,58 +1,34 @@
 <!DOCTYPE html>
-<html lang="fr"
-      xmlns:th="http://www.thymeleaf.org"
->
+<html lang="fr" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des tournois</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+
+    <span th:replace="~{/fragments/import :: bootstrap}"></span>
+    <span th:replace="~{/fragments/import :: styles('tournaments')}"></span>
+    <span th:replace="~{/fragments/import :: scripts('')}"></span>
 </head>
-<body>
-<div class="container">
-    <h2>Liste des Tournois</h2>
+<body class="d-flex min-vh-100 flex-column">
 
-    <!--  <div class="search-bar">-->
-    <!--    <form th:action="@{/tournaments}" method="get">-->
-    <!--      <input type="text" name="name" placeholder="Rechercher par nom" value="${name}" />-->
+<header th:insert="~{fragments/header :: header('')}"></header>
 
-    <!--      <select name="game">-->
-    <!--        <option value="">Tous les jeux</option>-->
-    <!--        <option value="FIFA">FIFA</option>-->
-    <!--        <option value="LoL">League of Legends</option>-->
-    <!--        <option value="CSGO">CS:GO</option>-->
-    <!--      </select>-->
+<main class="container flex-grow-1">
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold text-body-emphasis">Liste des Tournois</h1>
+    </div>
 
-    <!--      <select name="type">-->
-    <!--        <option value="">Tous les types</option>-->
-    <!--        <option value="classique">Classique</option>-->
-    <!--        <option value="1v1">1v1</option>-->
-    <!--        <option value="2v2">2v2</option>-->
-    <!--        <option value="3v3">3v3</option>-->
-    <!--      </select>-->
-
-    <!--      <select name="status">-->
-    <!--        <option value="">Tous les statuts</option>-->
-    <!--        <option value="upcoming">À venir</option>-->
-    <!--        <option value="ongoing">En cours</option>-->
-    <!--        <option value="finished">Terminé</option>-->
-    <!--      </select>-->
-
-    <!--      <input type="date" name="date" value="${date}" />-->
-
-    <!--      <button type="submit">Rechercher</button>-->
-    <!--    </form>-->
-    <!--  </div>-->
-
-    <table>
+    <!-- Liste des tournois -->
+    <table class="table table-striped table-hover">
         <thead>
         <tr>
-            <th>Nom</th>
-            <th>Type</th>
-            <th>Date</th>
-            <th>Statut</th>
-            <th>Détails</th>
-            <th>S'inscrire</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Type</th>
+            <th scope="col">Date</th>
+            <th scope="col">Statut</th>
+            <th scope="col">Détails</th>
+            <th scope="col">S'inscrire</th>
         </tr>
         </thead>
         <tbody>
@@ -61,19 +37,20 @@
             <td th:text="${tournament.getFormat()}"></td>
             <td th:text="${tournament.startDate}"></td>
             <td th:text="${tournament.getStatus()}"></td>
-
             <td>
-                <a th:href="@{/tournaments/id={id}(id=${tournament.getId()})}">Détails</a>
+                <a th:href="@{/tournaments/id={id}(id=${tournament.getId()})}" class="btn btn-info btn-sm">Détails</a>
             </td>
-
             <td>
                 <form th:action="@{/tournaments/join/{id}(id=${tournament.getId()})}" method="post">
-                    <button type="submit">S'inscrire</button>
+                    <button type="submit" class="btn btn-success btn-sm">S'inscrire</button>
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
-</div>
+</main>
+
+<footer th:insert="~{fragments/footer :: footer}"></footer>
+
 </body>
 </html>
