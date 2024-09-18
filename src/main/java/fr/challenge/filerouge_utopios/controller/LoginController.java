@@ -72,12 +72,6 @@ public class LoginController {
         model.addAttribute("error", "Email or password is incorrect");
         return "login";
 
-//
-//        if (!result.hasErrors()) {
-//            if (!service.login(user.getEmail(), user.getPassword())) {
-//                result.rejectValue("password", "error.user", "Username or password is incorrect");
-//            } else return "redirect:/";
-//        }
     }
 
     @RequestMapping("/logout")
@@ -91,5 +85,39 @@ public class LoginController {
     public String logoutPOST() {
         service.logout();
         return "redirect:/";
+    }
+
+    @RequestMapping("/newPassword")
+    public String newPassword(Model model) {
+        model.addAttribute("errorEmail", null);
+        model.addAttribute("errorPassword", null);
+        return "updateProfil";
+    }
+
+    @RequestMapping(value = "/newPassword", method = RequestMethod.POST)
+    public String updatePasswordPOST(@RequestParam("email") String email,
+                                 @RequestParam("login-password") String password,
+                                 @RequestParam("login-password-confirm") String passwordConfirm,
+                                 Model model) {
+        User user = userService.findByEmail(email);
+        if (user == null) {
+            model.addAttribute("errorEmail", "Invalid email");
+            if (!password.equals(passwordConfirm)) {
+                model.addAttribute("errorPassword", "Passwords do not match");
+            }else {
+                model.addAttribute("errorPassword", null);
+            }
+            return "/updateProfil";
+        }
+        if (!password.equals(passwordConfirm)) {
+            model.addAttribute("errorPassword", "Passwords do not match");
+            return "/updateProfil";
+        }else {
+            user.setPassword(password);
+            userService.save(user);
+            model.addAttribute("passwordUpdate", "Passwords updated successfully");
+            return "/updateProfil";
+        }
+
     }
 }
