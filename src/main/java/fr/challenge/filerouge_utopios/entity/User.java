@@ -57,7 +57,7 @@ public class User extends AbstractEntity {
     @NotNull(message = "You must enter a country")
     private Country country;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_to_tournament",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "tournament_id", referencedColumnName = "id"))

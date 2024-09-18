@@ -15,25 +15,6 @@
 <header th:insert="~{fragments/header :: header('')}"></header>
 
 <main class="container flex-grow-1">
-
-    <!--<div class="card mx-auto w-1000px">
-        <img class="card-img-top" src="/images/default_avatar.jpg" alt="Card image">
-        <div class="card-body">
-            <h4 class="card-title mb-3" th:text="${session.get('user').getPseudo()}"></h4>
-            <i class="flag flag-united-states"></i>
-            <p class="card-text mb-0" th:text="${session.get('user').getAge() + ' ans'}"></p>
-            <a th:href="@{mailto:{email}(email=${session.get('user').getEmail()})}">
-                <p class="card-text" th:text="${session.get('user').getEmail()}"></p>
-            </a>
-            <p class="card-text">
-                <strong class="text-warning">ELO</strong> : <span th:text="${session.get('user').getElo()}"></span>
-                (TODO: Compute Level from ELO)
-            </p>
-
-            <a href="#" class="btn btn-primary">See Profile</a>
-        </div>
-    </div>-->
-
     <div class="px-4 py-1 my-1">
         <div class="d-flex justify-content-center">
             <div class="mx-5">
@@ -50,40 +31,42 @@
             </div>
             <div class="mx-5 d-flex flex-column">
                 <img class="img-fluid w-200px rounded-circle mb-3" src="/images/default_avatar.jpg" alt="avatar">
-                <a href="#" class="btn btn-outline-success align-self-end">Change avatar</a>
+                <a href="#" class="btn btn-outline-success align-self-center">Change avatar</a>
             </div>
         </div>
-        <div class="d-flex justify-content-start border-top mx-5 px-5 mt-5 pt-4">
-            <h2>My tournaments</h2>
-            <p></p>
+        <div class="d-block justify-content-start border-top mx-5 px-5 mt-5 pt-4">
+            <h2 class="mb-4">My tournaments</h2>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-action d-flex flex-row justify-content-between"
+                    th:each="tournament : ${session.get('user').getTournaments()}">
+                    <div class="d-flex flex-row my-auto">
+                        <div class="my-auto">
+                            <h5 class="mb-1" th:text="${tournament.getLabel() + ' (' + tournament.getStatus().name().toLowerCase().replaceAll('_', ' ') + ')'}"></h5>
+                            <small class="d-block">Format: <strong th:text="${tournament.getFormat().name().replaceAll('_', ' ')}"></strong></small>
+                            <small class="text-muted"
+                                   th:text="${tournament.getStartDate()} + ' - ' + ${tournament.getEndDate()}"></small>
+                        </div>
+                        <div class="my-auto mx-3">
+
+                        </div>
+                    </div>
+                    <div class="my-auto">
+                        <p class="text-end" th:text="${tournament.getUsers().size() + ' registered players'}"></p>
+                        <a class="me-2 text-decoration-none" href="#" data-bs-toggle="tooltip"
+                           title="See the messages for this tournament">
+                            <img class="h-32px" src="/images/messages.png" alt="messages">
+                        </a>
+                        <a class="btn btn-primary" th:href="@{/tournaments/id={id}(id=${tournament.getId()})}">
+                            See details
+                        </a>
+                        <a class="btn btn-danger" href="">
+                            Quit
+                        </a>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
-    <!--<div id="infoUser" >
-        <div id="infoUserGeneral">
-            <div id="infoUserGeneralPseudo">
-                <p>pseudo</p>
-            </div>
-            <div id="infoUserGeneralAge">
-                <p>XX ans</p>
-            </div>
-            <div id="infoUserGeneralMail">
-                <p>xxx@mail.fr</p>
-            </div>
-            <div id="infoUserGeneralElo">
-                <p>"Debutant" (500 elo)</p>
-            </div>
-            <div id="infoUserGeneralPays">
-                <p>France [tag pour le flag]</p>
-            </div>
-        </div>
-        <div id="infoUserImage">
-            <img src="#">
-            <div>
-                <button>new image</button>
-            </div>
-        </div>
-    </div>
-    <div id="infoTournament"></div>-->
 </main>
 
 <footer th:insert="~{fragments/footer :: footer}"></footer>
