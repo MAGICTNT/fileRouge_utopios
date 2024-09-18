@@ -43,6 +43,7 @@
                         <div class="my-auto">
                             <h5 class="mb-1" th:text="${tournament.getLabel() + ' (' + tournament.getStatus().name().toLowerCase().replaceAll('_', ' ') + ')'}"></h5>
                             <small class="d-block">Format: <strong th:text="${tournament.getFormat().name().replaceAll('_', ' ')}"></strong></small>
+                            <small class="d-block" th:if="${tournament.getStatus().name().equals('FINISHED')}">Total score: <strong th:text="${tournament.getScore(session.get('user'))}"></strong></small>
                             <small class="text-muted"
                                    th:text="${tournament.getStartDate()} + ' - ' + ${tournament.getEndDate()}"></small>
                         </div>

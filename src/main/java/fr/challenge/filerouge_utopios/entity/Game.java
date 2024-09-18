@@ -30,7 +30,7 @@ public class Game extends AbstractEntity {
     @JoinColumn(nullable = false, name = "tournament_id", referencedColumnName = "id")
     private Tournament tournament;
 
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", fetch = FetchType.EAGER)
     @Builder.Default
     private List<Result> results = new ArrayList<>();
 

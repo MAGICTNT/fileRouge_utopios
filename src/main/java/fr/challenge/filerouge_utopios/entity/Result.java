@@ -24,5 +24,5 @@ public class Result {
     @JoinColumn(name = "game_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Game game;
 
-    private int result;
+    private Integer result;
 }

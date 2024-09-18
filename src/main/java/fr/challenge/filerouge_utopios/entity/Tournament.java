@@ -1,7 +1,7 @@
 package fr.challenge.filerouge_utopios.entity;
 
-import fr.challenge.filerouge_utopios.util.enums.Status;
 import fr.challenge.filerouge_utopios.util.enums.Format;
+import fr.challenge.filerouge_utopios.util.enums.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -54,7 +54,24 @@ public class Tournament extends AbstractEntity {
     @Builder.Default
     private List<Message> messages = new ArrayList<>();
 
+    @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<Game> games = new ArrayList<>();
+
     @ManyToOne
-    @JoinColumn(nullable = true , name = "user_id", referencedColumnName = "id")
+    @JoinColumn(nullable = true, name = "user_id", referencedColumnName = "id")
     private User creator;
+
+    public int getScore(User user) {
+        int score = 0;
+        for (Game game : games) {
+            for (Result result : game.getResults()) {
+                if (result.getUser().equals(user)) {
+                    score += result.getResult();
+                }
+            }
+        }
+
+        return score;
+    }
 }
