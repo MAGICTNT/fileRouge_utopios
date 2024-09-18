@@ -34,7 +34,9 @@ public class LoginService {
         }
         return false;
     }
-
+    public User getUser(){
+        return (User) httpSession.getAttribute("user");
+    }
     public boolean isLoggedIn() {
         try {
             return (boolean) httpSession.getAttribute("isLoggedIn");

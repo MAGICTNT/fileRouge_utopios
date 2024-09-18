@@ -53,4 +53,8 @@ public class Tournament extends AbstractEntity {
     @OneToMany(mappedBy = "tournament")
     @Builder.Default
     private List<Message> messages = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(nullable = true , name = "user_id", referencedColumnName = "id")
+    private User creator;
 }
