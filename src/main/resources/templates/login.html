@@ -41,8 +41,14 @@
                     <small class="text-danger" th:if="${error != null}" th:text="${error}"></small>
                 </div>
 
+                <div class="text-end">
+                    <a href="">Password forgotten ?</a>
+                </div>
+
                 <button class="btn btn-primary w-100 my-3 py-2" type="submit">Log in</button>
             </form>
+
+            <span>Don't have an account yet ? <a class="text-decoration-none" th:href="@{/signup}">Sign up</a></span>
         </div>
     </div>
 </main>
