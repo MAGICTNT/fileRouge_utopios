@@ -75,7 +75,10 @@ create table tournament
     status     varchar(255) not null
         constraint tournament_status_check
             check ((status)::text = ANY
-                   ((ARRAY ['NOT_STARTED'::character varying, 'IN_PROGRESS'::character varying, 'FINISHED'::character varying])::text[]))
+                   ((ARRAY ['NOT_STARTED'::character varying, 'IN_PROGRESS'::character varying, 'FINISHED'::character varying])::text[])),
+    user_id       bigint        not null
+        constraint fkjlulh83p0xvnkj2hpi7eq3in1
+            references user_account
 );
 -- Create table message
 create table message
@@ -174,17 +177,17 @@ VALUES ('USER', '1990-01-01', 1500, 'john.doe@example.com', 'password123', 'john
        ('ADMIN', '1982-02-14', 1750, 'george.adams@example.com', 'georgepass', 'george', '2024-10-01', 10);
 
 -- Insert into tournament
-INSERT INTO tournament (end_date, format, label, min_age, min_elo, start_date, status)
-VALUES ('2024-06-30', 'SINGLE', 'Summer Tournament', 18, 1400, '2024-06-01', 'NOT_STARTED'),
-       ('2024-12-31', 'DOUBLE', 'Winter Tournament', 21, 1500, '2024-12-01', 'IN_PROGRESS'),
-       ('2024-03-15', 'SINGLE', 'Spring Tournament', 16, 1300, '2024-03-01', 'FINISHED'),
-       ('2024-09-30', 'DOUBLE', 'Autumn Tournament', 19, 1450, '2024-09-01', 'NOT_STARTED'),
-       ('2024-05-15', 'SINGLE', 'Early Summer Tournament', 17, 1350, '2024-05-01', 'IN_PROGRESS'),
-       ('2024-11-15', 'DOUBLE', 'Late Autumn Tournament', 20, 1550, '2024-11-01', 'NOT_STARTED'),
-       ('2024-02-28', 'SINGLE', 'Winter Classic', 18, 1400, '2024-02-01', 'FINISHED'),
-       ('2024-07-15', 'DOUBLE', 'Mid Summer Tournament', 22, 1600, '2024-07-01', 'IN_PROGRESS'),
-       ('2024-08-31', 'SINGLE', 'End of Summer Tournament', 19, 1450, '2024-08-01', 'NOT_STARTED'),
-       ('2024-10-31', 'DOUBLE', 'Fall Classic', 21, 1500, '2024-10-01', 'IN_PROGRESS');
+INSERT INTO tournament (end_date, format, label, min_age, min_elo, start_date, status,user_id)
+VALUES ('2024-06-30', 'SINGLE', 'Summer Tournament', 18, 1400, '2024-06-01', 'NOT_STARTED', 1),
+       ('2024-12-31', 'DOUBLE', 'Winter Tournament', 21, 1500, '2024-12-01', 'IN_PROGRESS', 2),
+       ('2024-03-15', 'SINGLE', 'Spring Tournament', 16, 1300, '2024-03-01', 'FINISHED', 3),
+       ('2024-09-30', 'DOUBLE', 'Autumn Tournament', 19, 1450, '2024-09-01', 'NOT_STARTED', 4),
+       ('2024-05-15', 'SINGLE', 'Early Summer Tournament', 17, 1350, '2024-05-01', 'IN_PROGRESS', 5),
+       ('2024-11-15', 'DOUBLE', 'Late Autumn Tournament', 20, 1550, '2024-11-01', 'NOT_STARTED', 6),
+       ('2024-02-28', 'SINGLE', 'Winter Classic', 18, 1400, '2024-02-01', 'FINISHED', 7),
+       ('2024-07-15', 'DOUBLE', 'Mid Summer Tournament', 22, 1600, '2024-07-01', 'IN_PROGRESS', 8),
+       ('2024-08-31', 'SINGLE', 'End of Summer Tournament', 19, 1450, '2024-08-01', 'NOT_STARTED',9),
+       ('2024-10-31', 'DOUBLE', 'Fall Classic', 21, 1500, '2024-10-01', 'IN_PROGRESS',10);
 
 -- Insert into message
 INSERT INTO message (content, label, tournament_id, user_id)
