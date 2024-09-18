@@ -67,9 +67,9 @@
             </td>
 
             <td>
-                <form th:action="@{/tournaments/join/{id}(id=${tournament.getId()})}" method="post">
-                    <button type="submit">S'inscrire</button>
-                </form>
+                <button>
+                    <a th:href="@{/tournaments/join/id={id}(id=${tournament.getId()})}">inscription</a>
+                </button>
             </td>
         </tr>
         </tbody>

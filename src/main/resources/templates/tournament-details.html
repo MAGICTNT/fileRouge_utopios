@@ -23,6 +23,9 @@
             <button><a th:href="@{/deleteTournament/id={id}(id=${tournament.getId()})}">delete</a></button>
         </div>
     </div>
+    <div th:each="user : ${tournament.getUsers()}">
+        <p th:text="${user.getPseudo()}"></p>
+    </div>
 
     <!-- Liste des joueurs inscrits -->
     <!--  <h2 class="mt-5">Joueurs inscrits</h2>-->
