@@ -15,25 +15,6 @@
 <header th:insert="~{fragments/header :: header('')}"></header>
 
 <main class="container flex-grow-1">
-
-    <!--<div class="card mx-auto w-1000px">
-        <img class="card-img-top" src="/images/default_avatar.jpg" alt="Card image">
-        <div class="card-body">
-            <h4 class="card-title mb-3" th:text="${session.get('user').getPseudo()}"></h4>
-            <i class="flag flag-united-states"></i>
-            <p class="card-text mb-0" th:text="${session.get('user').getAge() + ' ans'}"></p>
-            <a th:href="@{mailto:{email}(email=${session.get('user').getEmail()})}">
-                <p class="card-text" th:text="${session.get('user').getEmail()}"></p>
-            </a>
-            <p class="card-text">
-                <strong class="text-warning">ELO</strong> : <span th:text="${session.get('user').getElo()}"></span>
-                (TODO: Compute Level from ELO)
-            </p>
-
-            <a href="#" class="btn btn-primary">See Profile</a>
-        </div>
-    </div>-->
-
     <div class="px-4 py-1 my-1">
         <div class="d-flex justify-content-center">
             <div class="mx-5">
@@ -86,32 +67,6 @@
             </ul>
         </div>
     </div>
-    <!--<div id="infoUser" >
-        <div id="infoUserGeneral">
-            <div id="infoUserGeneralPseudo">
-                <p>pseudo</p>
-            </div>
-            <div id="infoUserGeneralAge">
-                <p>XX ans</p>
-            </div>
-            <div id="infoUserGeneralMail">
-                <p>xxx@mail.fr</p>
-            </div>
-            <div id="infoUserGeneralElo">
-                <p>"Debutant" (500 elo)</p>
-            </div>
-            <div id="infoUserGeneralPays">
-                <p>France [tag pour le flag]</p>
-            </div>
-        </div>
-        <div id="infoUserImage">
-            <img src="#">
-            <div>
-                <button>new image</button>
-            </div>
-        </div>
-    </div>
-    <div id="infoTournament"></div>-->
 </main>
 
 <footer th:insert="~{fragments/footer :: footer}"></footer>
