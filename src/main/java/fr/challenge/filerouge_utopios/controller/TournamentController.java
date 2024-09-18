@@ -41,6 +41,12 @@ public class TournamentController {
     @RequestMapping(value = "/newTournament", method = RequestMethod.POST)
     public String newTournament(@Valid @ModelAttribute("tournament") Tournament tournament, BindingResult result, Model model) {
         tournament.setMinElo(0);
+        if(tournament.getStartDate().isAfter(tournament.getEndDate())){
+            model.addAttribute("tournament", new Tournament());
+            model.addAttribute("formats", Format.values());
+            model.addAttribute("statusMessage", "la date du debut de tournois ne peux commencer apres la fin ");
+            return "/tournament-create-update";
+        }
 //        tournament.setFormat(Format.values()[0]);
         Tournament newTournament = tournamentService.save(tournament);
         model.addAttribute("tournament", new Tournament());
