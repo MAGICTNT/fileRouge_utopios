@@ -28,7 +28,7 @@ public class LoginService {
 
         User user = userService.findByEmail(email);
         if (user.getPassword().equals(password)) {
-            httpSession.setAttribute("isLoggedIn", true);
+            httpSession.setAttribute("isLoggedIn", Boolean.TRUE);
             httpSession.setAttribute("user", user);
             return true;
         }
@@ -44,7 +44,7 @@ public class LoginService {
     }
 
     public void logout() {
-        httpSession.removeAttribute("isLoggedIn");
+        httpSession.setAttribute("isLoggedIn", Boolean.FALSE);
         httpSession.removeAttribute("user");
     }
 }

@@ -18,18 +18,27 @@
                         <a href="/tournaments"
                            class="nav-link px-2"
                            th:classAppend="${currentUrl == '/tournaments' ? 'text-secondary' : 'text-white'}">
-                            See the tournaments
+                            All tournaments
+                        </a>
+                    </li>
+                    <li th:if="${session.get('isLoggedIn') != null && session.get('isLoggedIn')}">
+                        <a href="/newTournament"
+                           class="nav-link px-2"
+                           th:classAppend="${currentUrl == '/newTournament' ? 'text-secondary' : 'text-white'}">
+                            Create a tournament
                         </a>
                     </li>
 
                     <!-- Add more links here -->
                 </ul>
 
-                <div class="text-end" th:unless="${session.get('isLoggedIn') == null || session.get('isLoggedIn') != null && session.get('isLoggedIn')}">
+                <div class="text-end"
+                     th:if="${session.get('isLoggedIn') == null || session.get('user') == null || (session.get('isLoggedIn') != null && !session.get('isLoggedIn'))}">
                     <a th:href="@{/signup}" class="btn btn-success">Signup</a>
                     <a th:href="@{/login}" class="btn btn-outline-light me-2">Login</a>
                 </div>
-                <div class="text-end" th:if="${session.get('isLoggedIn') != null && session.get('isLoggedIn') && session.get('user') != null}">
+                <div class="text-end"
+                     th:if="${session.get('isLoggedIn') != null && session.get('user') != null && session.get('isLoggedIn') && session.get('user') != null}">
                     <form th:action="@{/logout}" method="post" class="d-inline mx-3">
                         <button class="btn btn-sm btn-danger" type="submit">Logout</button>
                     </form>
