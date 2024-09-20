@@ -41,10 +41,12 @@
                 <a th:href="@{/tournaments/id={id}(id=${tournament.getId()})}" class="btn btn-info btn-sm">Détails</a>
             </td>
             <td>
-<!--                <button  class="btn btn-success btn-sm" th:href="@{/tournaments/join/id={id}(id=${tournament.getId()})}">-->
-                <button  class="btn btn-success btn-sm">
-                    S'inscrire
-                </button>
+<!--                <form th:action="@{/tournaments/join/id={id}(id=${tournament.getId()})}" method="post">-->
+<!--                    <button type="submit" class="btn btn-success btn-sm" >-->
+<!--                        &lt;!&ndash;                <button  class="btn btn-success btn-sm">&ndash;&gt;-->
+<!--                        S'inscrire-->
+<!--                    </button>-->
+<!--                    <form>-->
 
             </td>
         </tr>
